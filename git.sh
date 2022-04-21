@@ -14,6 +14,6 @@ git clone -b magento_2_3_4 https://github.com/VisionetSystemsInc/tbg.git
 
 git merge dev --allow-unrelated-histories
 
-
-#how to remove git from a folder
+#🔍search: how to remove git from a folder
+#@description: if folder all sit with git and you want to set as new repository 
 git rm -r --cached myFolder
