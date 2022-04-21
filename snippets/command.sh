@@ -203,21 +203,7 @@ unzip file.zip -d destination_folder
 #If the source and destination directories are the same, you can simply do:
 
 unzip file.zip
-#--------------------------------GIT:----------------------------------------
 
-
-git add -A stages all changes
-git add . stages new files and modifications, without deletions
-git add -u stages modifications and deletions, without new files
-
-git commit -m "Update Amasty and Swissup Plugin "
-git push origin magento_2_3_4
-
-git pull origin magento_2_3_4
-git clone -b magento_2_3_4 https://github.com/VisionetSystemsInc/tbg.git
-
-
-git merge dev --allow-unrelated-histories
 #--------------------------------MYSQL----------------------------------------
 mysql -u sportscor-test -p
 
