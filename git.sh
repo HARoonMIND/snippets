@@ -16,4 +16,9 @@ git merge dev --allow-unrelated-histories
 
 #🔍search: how to remove git from a folder
 #@description: if folder all sit with git and you want to set as new repository 
+
 git rm -r --cached myFolder
+
+# OR
+
+git init
