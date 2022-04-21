@@ -1,0 +1,36 @@
+/* MOBILE SCREEN */
+@media screen and (max-width: 768px) {
+  
+}
+
+
+
+/* MOBILE SCREEN */
+
+.menu-toggle{
+    display: block;
+    z-index: 999;
+    position: absolute;
+    right: 50px;
+    top:10px;
+    /* Backgound set image */
+    background-image: url("https://img.icons8.com/ios/50/000000/menu-rounded.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/* SET ICON AFTER */
+/* GET ICON FROM HERE:img.icons8.com */
+.menu-toggle::after{
+    content:" ";
+    display: block;
+    z-index: 999;
+    position: absolute;
+    right: 50px;
+    top:10px;
+    /* Backgound set image */
+    background-image: url("https://img.icons8.com/ios/50/000000/menu-rounded.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
