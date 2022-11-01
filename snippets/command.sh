@@ -1,15 +1,28 @@
 ?templatehints=magento
     
-  php bin/magento s:up && php -dmemory_limit=3G bin/magento setup:di:compile && php -dmemory_limit=3G bin/magento s:s:d en_US -f   && htop
-// ar_SA
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f
-
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f && php -dmemory_limit=3G bin/magento setup:di:compile && htop
-#  with sound :
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d  en_US ar_SA -f && htop
-
   
+  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f
+#with Di compile:
+  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f && php -dmemory_limit=3G bin/magento setup:di:compile && htop
 
+
+#  with sound :
+php bin/magento s:up && \
+php -dmemory_limit=2G  bin/magento s:d:c && \
+php -dmemory_limit=3G bin/magento s:s:d en_US ar_SA -f && \
+echo -e "\07" && htop
+
+php bin/magento s:up && php -dmemory_limit=3G bin/magento setup:di:compile && php -dmemory_limit=3G bin/magento s:s:d en_US -f && htop
+// ar_SA
+for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r | less
+
+az vm create --resource-group TutorialResources \
+  --name TutorialVM1 \
+  --image UbuntuLTS \
+  --generate-ssh-keys \
+  --output json \
+  --verbose 
+  Confirm that the VM is running by connecting over SSH.
 
 
 ### --------------------------Deployment Production Producer-------------------------------------------
@@ -21,6 +34,11 @@ php bin/magento c:c
 php bin/magento c:f
 php bin/magento s:up
 php -dmemory_limit=2G bin/magento s:s:d en_US en_GB -f
+
+
+php -dmemory_limit=2G bin/magento sap:order:date-status 2022-10-1 pending
+php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
+php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
 
 php -dmemory_limit=12G  bin/magento indexer:reindex
 php -dmemory_limit=2G  bin/magento s:d:c
@@ -39,6 +57,9 @@ php -dmemory_limit=2G bin/magento setup:static-content:deploy --theme Smartwave/
 php bin/magento module:disable Magento_TwoFactorAuth
 php bin/magento module:disable MyPrice_MyFormat
 php bin/magento module:disable Mageplaza_SocialLogin
+php bin/magento module:enable Mind_SAP
+
+php bin/magento module:disable Techvista_Swatches
 
 php bin/magento module:disable Aheadworks_PaymentRestrictions
 
@@ -59,6 +80,9 @@ php  -dmemory_limit=2G bin/magento s:s:d en_US ar_SA -f
 
 Cloud Flare set on Development
 
+php bin/magento cron:run
+
+
 
 mysql -u therkn-test -p 1DzSNkTmGd37uRkj -d therkn-test
 
@@ -70,35 +94,8 @@ php bin/magento module:disable  Aheadworks_StoreCredit
 #Uninstall Module Using Command Line [if module in composer]
 php bin/magento module:uninstall Namespace_Module
 php bin/magento module:enable Mind_Filter
-php bin/magento module:enable Amasty_Shopby
-php bin/magento module:enable Amasty_VisualMerch
-php bin/magento module:enable Amasty_VisualMerchUi
-php bin/magento module:disable Amasty_Scroll
-php bin/magento module:disable Mageplaza_BannerSlider
-php bin/magento module:disable Meetanshi_CustomPayment
-php bin/magento module:disable Amasty_Scroll
-php bin/magento module:status  Emizentech_Priceslider
-php bin/magento module:disable Faonni_Price
-php bin/magento module:disable Dotdigitalgroup_Email
-php bin/magento module:disable Dotdigitalgroup_Chat
-php bin/magento module:disable Magespacex_InventorySuccess
-php bin/magento module:uninstall Faonni_Price
-php bin/magento module:disable Vnecoms_Core
-php bin/magento module:disable Amasty_Sorting
-php bin/magento module:enable Amasty_Base
-php bin/magento module:enable Bss_SizeChart
-
-php bin/magento module:disable Mageplaza_SocialLogin
-php bin/magento module:enable Mageplaza_SocialLogin
-php bin/magento module:disable Vnecoms_Sms
-php bin/magento module:disable Amasty_Mostviewed
-php bin/magento module:uninstall Mageplaza_Core
-php bin/magento module:enable Petshopcustom_Restfulapi
-php bin/magento module:enable Amasty_VisualMerch
-php bin/magento module:disable Magefan_Community
-php bin/magento module:disable Mageplaza_LazyLoading
-
 php bin/magento module:disable Searchanise_SearchAutocomplete
+
 ### ---------------------------------------------------------------------
 
  cd /home/scqatar/sc-dev/
@@ -109,8 +106,8 @@ php bin/magento dev:urn-catalog:generate .idea/misc.xml
 #new user
 php bin/magento admin:user:create --admin-user=haroonmind11 --admin-password=Haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
-php bin/magento admin:user:create --admin-user=haroonmind1 --admin-password=Haroonmind123456! --admin-email=haroonmind11@gmail.com --admin-firstname=Haroon --admin-lastname=khan
-php bin/magento admin:user:create --admin-user=haroonmind --admin-password=Admin123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonmind --admin-password=haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonmind --admin-password=asdasdsad3123! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
 admin2
 haroonmind
@@ -143,7 +140,7 @@ cp -a ../public_html/pub/media/catalog/product/. pub/media/catalog/product/
 cp -a app/code/* ../dev5/app/code -R
 cp -a /home/cloudpanel/htdocs/test1.test/Magento-2-main/* /home/cloudpanel/htdocs/test1.test/ -R
 
-
+cp -a rasenconnector/* test1 -R
 cp -a  /Magento-2-main ./Magento-2-main
 
 . means current folder.
@@ -160,6 +157,13 @@ rm -r will recursively delete a directory and all its contents (normally rm will
 rm -f will forcibly delete files without asking; this is mostly useful if you have rm aliased to ``rm -i'' but want to delete lots of files without confirming each one.
 rm -r generated/* var/cache/* var/log/* 
 
+
+#Check current memory_limit value using CLI:
+
+php -r "echo ini_get('memory_limit').PHP_EOL;"
+
+php -i | grep memory
+
 #----------------------------FOR DEPLOY----------------------------------------
 
 
@@ -174,6 +178,8 @@ chown admin:root * -R   :change owner
 chmod -cR 777 .       :change owner
 su - clp
 sudo chown root:clp * -Rc
+#File Give file Permission to all folder to this user
+sudo chown ubuntu:ubuntu * -R
 
 #### Permission
 
@@ -181,7 +187,7 @@ sudo chown root:clp * -Rc
 
 find . -type f -exec chmod 664 {} \;
 
-  find . -type d -exec chmod 775 {} \;
+find . -type d -exec chmod 775 {} \;
 
 find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 
@@ -198,14 +204,11 @@ $ mv /home/apache2/www/html/ ..
 
 #It's just <magento-root>/var/ folder permission issue.
 
-#Execute below command using CLI mode
+#Execute below command using CLI modehar
 
 sudo chmod -R 777 var/cache/*
 sudo chmod -R 777 pub/*
-
 sudo chmod -R 777 generated/
-
-
 #----------------------------USEFUL COMMANDS FOR MAGNETO---------------------------------------
 # read last chnages on file  
 tail -f var/log/*.log
@@ -354,10 +357,11 @@ php bin/magento setup:static-content:deploy en_US --exclude-theme Magento/luma -
 
 ### Reindexing Using Command Line
 php bin/magento indexer:reindex catalog_category_product
-php bin/magento indexer:status catalog_category_product
-php bin/magento indexer:status catalog_product_attribute
+php bin/magento indexer:status catalog_category_product 
+php bin/magento indexer:reindex catalog_product_attribute
 php bin/magento indexer:reindex  cataloginventory_stock
 php bin/magento indexer:reindex  catalogrule_rule
+
 ### View the list of indexers Using Command Line
 
 php bin/magento indexer:info
@@ -381,7 +385,6 @@ php bin/magento module:enable Namespace_Module
 ### Disable module Using Command Line
 
 php bin/magento module:disable Namespace_Module
-php bin/magento module:disable KiwiCommerce_CronScheduler
 
 ### Check Current Mode Using Command Line
 
@@ -390,7 +393,6 @@ php bin/magento deploy:mode:show
 ### Change To Developer Mode Using Command Line
 
 php bin/magento deploy:mode:set developer
-php bin/magento deploy:mode:set defaFcomi
 
 ### Change To Production Mode Using Command Line
 
@@ -436,7 +438,7 @@ php bin/magento cron:install --force
 
 crontab -l
 
-  sudo chown ubuntu:ubuntu * -R
+
 
 
 # Remove Magento crontab Using Command Line
@@ -480,14 +482,24 @@ cd /home/cloudpanel/htdocs/test.therkn.com
     catalog/category/view/s/cycling/id/1160
    /catalog/category/view/s/cycling/id/1160
 
-sudo chmod 777 -R .
-sudo chown www-data: -R .
+
 rm -rf var/cache/* pub/static/* var/page_cache/* var/page_cache/* var/generation/* pub/static/* var/composer_home/* var/view_preprocesse/*
 composer install
 
-sudo chmod -R 777 var/cache/* pub/*
-sudo chmod -R 777 
+
 
 php bin/magento setup:store-config:set --base-url="https://rasen.test/"
 SQL : MAGENTO 
 DELETE FROM url_rewrite WHERE entity_type = 'category' AND entity_id NOT IN (SELECT entity_id FROM catalog_category_entity)
+#********************************************File Permission****************************************
+sudo chown ubuntu:ubuntu * -R
+sudo chmod -R 777 var/cache/* pub/*
+sudo chmod -R 777 
+sudo chmod 777 -R .
+sudo chown www-data: -R .
+find . -type f -exec chmod 644 {} \;
+find . -type d -exec chmod 755 {} \;
+find var pub/static pub/media app/etc generated/ -type f -exec chmod g+w {} \;
+find var pub/static pub/media app/etc generated/ -type d -exec chmod g+ws {} \;
+chown -R <Magento user>:<web server group> .
+chmod u+x bin/magento
