@@ -1,0 +1,135 @@
+    <!-- Modal -->
+    <div class="modal fade" id="multislect_kitchen" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                           aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel">BOND EDIT FORM</h4>
+           </div>
+           <div class="modal-body">
+
+
+               <div class="panel panel-default">
+                   <div class="panel-heading bg-white">
+                       BOND<br>
+                       <small class="text-muted">
+                       </small>
+                   </div>
+                   <div class="panel-body">
+
+                       <form id="bond_update_form" method="post" accept-charset="utf-8">
+                           <div class="form-group">
+                               <!-- <label for="exampleInputEmail1">Title</label>
+                                <input type="text" class="form-control" name="title" id="b_title" placeholder="" required="">-->
+
+                               <input type="hidden" class="form-control" name="user_id"
+                                      id="bond_user_id"
+                                      required="">
+                               <input type="hidden" class="form-control" name="id" id="bond_id"
+                                      required="">
+                           </div>
+                           <div class="form-group">
+                               <label for="exampleInputPassword1">Invested Amount</label>
+                               <input type="text" class="form-control" name="invested_amount"
+                                      id="b_invested_amount" placeholder="" required="">
+                           </div>
+
+                           <div class="form-group">
+                               <label for="exampleInputPassword1">Bond Name</label>
+                               <input type="text" class="form-control" name="bond_name"
+                                      id="b_bond_name"
+                                      placeholder="" required="">
+                           </div>
+
+                           <div class="form-group">
+                               <label for="exampleInputPassword1">Term</label>
+                               <input type="text" class="form-control" name="term" id="b_term"
+                                      placeholder=""
+                                      required="">
+                           </div>
+
+                           <div class="form-group">
+                               <label for="exampleInputPassword1">Date</label>
+                               <input type="text" class="form-control" name="date" id="b_date"
+                                      placeholder=""
+                                      required="">
+                           </div>
+
+                           <div class="form-group">
+                               <label for="exampleInputPassword1">Return</label>
+                               <input type="text" class="form-control" name="return" id="b_return"
+                                      placeholder=""
+                                      required="">
+                           </div>
+
+
+                           <div class="form-group b_invested_status_group">
+                               <label for="">Deposit Amount Request </label>
+                               <div class="input-group">
+                                   <div class="input-group-btn">
+                                       <button type="button" class="btn btn-default dropdown-toggle"
+                                               data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false">
+                                           Action <span class="caret"></span></button>
+                                       <ul class="dropdown-menu">
+                                           <li><a class="btn-add-amount" data-status="1" href="#">Pending</a>
+                                           </li>
+                                           <li><a class="btn-add-amount" data-status="2" href="#">Approved</a>
+                                           </li>
+                                           <li role="separator" class="divider"></li>
+                                           <li><a class="btn-add-amount" data-status="3"
+                                                  href="#">Deny</a></li>
+                                       </ul>
+                                   </div><!-- /btn-group -->
+                                   <input type="number" class="form-control" name="add_amount"
+                                          id="b_add_req_amt"
+                                          placeholder="Add amount" required="">
+                                   <input type="hidden" name="invested_status" id="b_invested_status"
+                                          value="">
+                               </div><!-- /input-group -->
+
+                           </div>
+
+                           <div class="form-group b_withdraw_status_group">
+                               <label for="">Withdraw Amount Request </label>
+                               <div class="input-group">
+                                   <div class="input-group-btn">
+                                       <button type="button"
+                                               class="btn btn-default btn-withdraw_amount dropdown-toggle"
+                                               data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false">
+                                           Action <span class="caret"></span></button>
+                                       <ul class="dropdown-menu">
+                                           <li><a class="btn-withdraw_amount" data-status="1" href="#">Pending</a>
+                                           </li>
+                                           <li><a class="btn-withdraw_amount" data-status="2" href="#">Approved</a>
+                                           </li>
+                                           <li role="separator" class="divider"></li>
+                                           <li><a class="btn-withdraw_amount" data-status="3" href="#">Deny</a>
+                                           </li>
+                                       </ul>
+                                   </div><!-- /btn-group -->
+                                   <input type="number" class="form-control" name="withdraw_amount"
+                                          id="b_withdraw_amt" placeholder="Withdraw amount"
+                                          required="">
+                                   <input type="hidden" name="withdraw_status" id="b_withdraw_status"
+                                          value="">
+                               </div><!-- /input-group -->
+                           </div>
+                           <!-- <button type="submit" class="btn btn-default m-b waves-effect waves-effect type_submit_bond" >Submit
+                            </button>-->
+                       </form>
+                   </div>
+               </div>
+
+
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" class="btn_bond_update btn btn-primary">Save changes</button>
+           </div>
+       </div>
+   </div>
+</div>

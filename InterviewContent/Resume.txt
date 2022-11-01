@@ -1,0 +1,6 @@
+Python:
+        A graduate degree in Data Science or another quantitative field is a plus
+        Excellent proficiency in common Data Science toolkits, such as R, Python, data processing, database programming, and data analytics
+        Analytical mind with a strong problem-solving aptitude
+        Experience collaborating with engineering and product development teams
+        Fluency in English, both spoken and written

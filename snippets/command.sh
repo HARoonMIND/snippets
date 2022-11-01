@@ -1,6 +1,16 @@
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d en_US ar_SA -f && php -dmemory_limit=3G bin/magento setup:di:compile && htop
-   ?templatehints=magento
-  #  with sound :
+?templatehints=magento
+    
+  php bin/magento s:up && php -dmemory_limit=3G bin/magento setup:di:compile && php -dmemory_limit=3G bin/magento s:s:d en_US -f   && htop
+// ar_SA
+  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f
+
+  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f && php -dmemory_limit=3G bin/magento setup:di:compile && htop
+#  with sound :
+  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d  en_US ar_SA -f && htop
+
+  
+
+
 
 ### --------------------------Deployment Production Producer-------------------------------------------
 php bin/magento deploy:mode:set developer
@@ -10,7 +20,7 @@ php bin/magento catalog:image:resize
 php bin/magento c:c
 php bin/magento c:f
 php bin/magento s:up
-php -dmemory_limit=2G bin/magento s:s:d en_US ar_SA -f
+php -dmemory_limit=2G bin/magento s:s:d en_US en_GB -f
 
 php -dmemory_limit=12G  bin/magento indexer:reindex
 php -dmemory_limit=2G  bin/magento s:d:c
@@ -22,13 +32,15 @@ php bin/magento s:up --keep-generated
 php bin/magento setup:static-content:deploy
 php  -dmemory_limit=2G bin/magento setup:static-content:deploy en_US ar_SA -f
 
-
 debug:
 
 php -dmemory_limit=2G bin/magento setup:static-content:deploy  --theme Electric/Regal en_US en_GB -f
 php -dmemory_limit=2G bin/magento setup:static-content:deploy --theme Smartwave/porto
 php bin/magento module:disable Magento_TwoFactorAuth
 php bin/magento module:disable MyPrice_MyFormat
+php bin/magento module:disable Mageplaza_SocialLogin
+
+php bin/magento module:disable Aheadworks_PaymentRestrictions
 
 php htdocs/test1.sportscorner.qa/current/bin/magento c:f
 php htdocs/test1.sportscorner.qa/current/bin/magento s:up
@@ -65,7 +77,7 @@ php bin/magento module:disable Amasty_Scroll
 php bin/magento module:disable Mageplaza_BannerSlider
 php bin/magento module:disable Meetanshi_CustomPayment
 php bin/magento module:disable Amasty_Scroll
-php bin/magento module:disable Magecomp_Orderstatus
+php bin/magento module:status  Emizentech_Priceslider
 php bin/magento module:disable Faonni_Price
 php bin/magento module:disable Dotdigitalgroup_Email
 php bin/magento module:disable Dotdigitalgroup_Chat
@@ -73,7 +85,7 @@ php bin/magento module:disable Magespacex_InventorySuccess
 php bin/magento module:uninstall Faonni_Price
 php bin/magento module:disable Vnecoms_Core
 php bin/magento module:disable Amasty_Sorting
-
+php bin/magento module:enable Amasty_Base
 php bin/magento module:enable Bss_SizeChart
 
 php bin/magento module:disable Mageplaza_SocialLogin
@@ -95,8 +107,9 @@ php bin/magento module:disable Searchanise_SearchAutocomplete
 php bin/magento dev:urn-catalog:generate .idea/misc.xml
 
 #new user
-php bin/magento admin:user:create --admin-user=haroonmind --admin-password=Haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonmind11 --admin-password=Haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
+php bin/magento admin:user:create --admin-user=haroonmind1 --admin-password=Haroonmind123456! --admin-email=haroonmind11@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 php bin/magento admin:user:create --admin-user=haroonmind --admin-password=Admin123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
 admin2
@@ -145,6 +158,7 @@ FOR Remove
 rm -i will ask before deleting each file. Some people will have rm aliased to do this automatically (type "alias" to check). Consider using rm -I instead, which will only ask once and only if you are trying to delete three or more files.
 rm -r will recursively delete a directory and all its contents (normally rm will not delete directories, while rmdir will only delete empty directories).
 rm -f will forcibly delete files without asking; this is mostly useful if you have rm aliased to ``rm -i'' but want to delete lots of files without confirming each one.
+rm -r generated/* var/cache/* var/log/* 
 
 #----------------------------FOR DEPLOY----------------------------------------
 
@@ -154,11 +168,12 @@ rm -f will forcibly delete files without asking; this is mostly useful if you ha
 
 
 #----------------------------CHANGE FILE PERMISSION AND OWNER SHIP---------------------------------------
+sudo chown root:root * -R
 sudo chown clp:root * -R :super user do
 chown admin:root * -R   :change owner
 chmod -cR 777 .       :change owner
 su - clp
-sudo chown root:clp * -R
+sudo chown root:clp * -Rc
 
 #### Permission
 
@@ -166,7 +181,7 @@ sudo chown root:clp * -R
 
 find . -type f -exec chmod 664 {} \;
 
-find . -type d -exec chmod 775 {} \;
+  find . -type d -exec chmod 775 {} \;
 
 find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 
@@ -174,29 +189,38 @@ find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws 
 Set the ownership to Magento user and web user using
 
 sudo chown -R <Magento user>:<web server group> .
-mv  -v /Magento-2-main/* ./
+
+mv  -v Magento-2-main/* ./
+
+$ mv /home/apache2/www/html/ /home/apache2/www/
+OR
+$ mv /home/apache2/www/html/ ..
 
 #It's just <magento-root>/var/ folder permission issue.
 
 #Execute below command using CLI mode
 
-sudo chmod -R 777 var/
+sudo chmod -R 777 var/cache/*
+sudo chmod -R 777 pub/*
 
 sudo chmod -R 777 generated/
 
 
 #----------------------------USEFUL COMMANDS FOR MAGNETO---------------------------------------
+# read last chnages on file  
 tail -f var/log/*.log
-show all log files current changes
+#show all log files current changes
 tail  -n 15 filename.ext
 tail  -n 15 system.log
 #--------------------------------ZIP LINUX:----------------------------------------
+find  -iname *swatch-renderer.js*
 #Install Zip on Ubuntu and Debian #
 sudo apt install zip
 #Install Zip on CentOS and Fedora
 sudo yum install zip
 
 zip -r rkn_24_10_2021.zip rkndev/ -x '*vendor*' -x '*generated*'
+zip -r rkn_19_6_2022.zip www.therkn.com/ 
 
 unzip file.zip -d destination_folder
 
@@ -233,11 +257,27 @@ mysql -u [username] –p[password] [database_name] < [dump_file.sql]
 
 
 https://stackoverflow.com/questions/7217894/moving-changed-files-to-another-branch-for-check-in
+
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+-r or -R is recursive,
+-n is line number, and
+-w stands for match the whole word.
+-l (lower-case L) can be added to just give the file name of matching files.
+-e is the pattern used during the search
+Along with these, --exclude, --include, --exclude-dir flags could be used for efficient searching:
+
+This will only search through those files which have .c or .h extensions:
+grep --include=\*.{c,h} -rnw '/path/to/somewhere/' -e "pattern"
+This will exclude searching all the files ending with .o extension:
+grep --exclude=\*.o -rnw '/path/to/somewhere/' -e "pattern"
+#For directories it's possible to exclude one or more directories using the --exclude-dir parameter. For example, this will exclude the dirs dir1/, dir2/ and all of them matching *.dst/:
+grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/somewhere/' -e "pattern"
+
 git cherry-pick SHA
 git reset HEAD~1
 grep -r wk-discount-percent *
 wk-discount-percent
-
+grep -r multibiztextiles.com *
 
 
 
@@ -341,6 +381,7 @@ php bin/magento module:enable Namespace_Module
 ### Disable module Using Command Line
 
 php bin/magento module:disable Namespace_Module
+php bin/magento module:disable KiwiCommerce_CronScheduler
 
 ### Check Current Mode Using Command Line
 
@@ -395,7 +436,10 @@ php bin/magento cron:install --force
 
 crontab -l
 
-### Remove Magento crontab Using Command Line
+  sudo chown ubuntu:ubuntu * -R
+
+
+# Remove Magento crontab Using Command Line
 php bin/magento cron:remove
 
 https://magentip.com/install-magento-2-4-x-on-ubuntu-with-elasticsearch/
@@ -436,5 +480,14 @@ cd /home/cloudpanel/htdocs/test.therkn.com
     catalog/category/view/s/cycling/id/1160
    /catalog/category/view/s/cycling/id/1160
 
-   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 
-   1 2 3 4 5 6 7 8 9 10 11 12 1   2 3  4  5   6 7 8 9         10      11      12
+sudo chmod 777 -R .
+sudo chown www-data: -R .
+rm -rf var/cache/* pub/static/* var/page_cache/* var/page_cache/* var/generation/* pub/static/* var/composer_home/* var/view_preprocesse/*
+composer install
+
+sudo chmod -R 777 var/cache/* pub/*
+sudo chmod -R 777 
+
+php bin/magento setup:store-config:set --base-url="https://rasen.test/"
+SQL : MAGENTO 
+DELETE FROM url_rewrite WHERE entity_type = 'category' AND entity_id NOT IN (SELECT entity_id FROM catalog_category_entity)
