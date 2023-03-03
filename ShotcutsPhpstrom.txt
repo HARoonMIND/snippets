@@ -1,0 +1,21 @@
+intellij phpstrom short key Structure:
+
+alt +  Home -- quick nivaget to file and folder to project view .
+ctrl + shift +a -- do action short cut
+ctrl + tab
+ctrl + f4
+
+book marks :f11 to toggle and shift f11 to navigate book mark
+
+ctrl + n  to navigate to class
+shift shift :
+ctrl +alt+T surround with 
+
+add new class alt + Insert 
+ctrl + alt + M extract method refactoring
+
+press Alt+Enter to invoke a quick fix or intention action, press the right arrow key to reveal the list of additional options. 
+
+ctrl + alt + j  --- enter sround tag 
+
+alt + 12 perview page 

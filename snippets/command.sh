@@ -1,30 +1,22 @@
 ?templatehints=magento
-    
-  
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f
-#with Di compile:
-  php bin/magento s:up &&  php -dmemory_limit=3G bin/magento s:s:d --theme Magento/backend --theme Smartwave/scChild en_US ar_SA -f && php -dmemory_limit=3G bin/magento setup:di:compile && htop
-
-
 #  with sound :
-php bin/magento s:up && \
-php -dmemory_limit=2G  bin/magento s:d:c && \
-php -dmemory_limit=3G bin/magento s:s:d en_US ar_SA -f && \
-echo -e "\07" && htop
+    php bin/magento s:up && \
+    php -dmemory_limit=2G  bin/magento s:d:c && \
+    php -dmemory_limit=3G bin/magento s:s:d en_US ar_SA -f && \
+    echo -e "\07" && htop
 
-php bin/magento s:up && php -dmemory_limit=3G bin/magento setup:di:compile && php -dmemory_limit=3G bin/magento s:s:d en_US -f && htop
+bin/magento cron:run --group="report_cron_group"
 // ar_SA
 for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r | less
 
-az vm create --resource-group TutorialResources \
-  --name TutorialVM1 \
-  --image UbuntuLTS \
-  --generate-ssh-keys \
-  --output json \
-  --verbose 
-  Confirm that the VM is running by connecting over SSH.
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+bin/magento config:set system/security/max_session_size_admin 2560000 && \
+bin/magento config:set admin/security/session_lifetime 31536000
+### --------------------------Deployment SAP ORDER -------------------------------------------
 
-
+php -dmemory_limit=2G bin/magento sap:order:date-status 2022-9-26 shipped
 ### --------------------------Deployment Production Producer-------------------------------------------
 php bin/magento deploy:mode:set developer
 php  bin/magento deploy:mode:set production -s
@@ -35,10 +27,12 @@ php bin/magento c:f
 php bin/magento s:up
 php -dmemory_limit=2G bin/magento s:s:d en_US en_GB -f
 
-
+php bin/magento push:order 2000000873
+php bin/magento push:order 2000001047
 php -dmemory_limit=2G bin/magento sap:order:date-status 2022-10-1 pending
 php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
 php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
+php -dmemory_limit=2G bin/magento sap:order:sync-csv sample.csv
 
 php -dmemory_limit=12G  bin/magento indexer:reindex
 php -dmemory_limit=2G  bin/magento s:d:c
@@ -52,16 +46,10 @@ php  -dmemory_limit=2G bin/magento setup:static-content:deploy en_US ar_SA -f
 
 debug:
 
-php -dmemory_limit=2G bin/magento setup:static-content:deploy  --theme Electric/Regal en_US en_GB -f
-php -dmemory_limit=2G bin/magento setup:static-content:deploy --theme Smartwave/porto
-php bin/magento module:disable Magento_TwoFactorAuth
-php bin/magento module:disable MyPrice_MyFormat
-php bin/magento module:disable Mageplaza_SocialLogin
-php bin/magento module:enable Mind_SAP
+php -dmemory_limit=2G bin/magento setup:static-content:deploy  --theme Smartwave/porto en_US en_GB -f
 
-php bin/magento module:disable Techvista_Swatches
-
-php bin/magento module:disable Aheadworks_PaymentRestrictions
+php bin/magento module:disable Vnecoms_Sms
+php bin/magento module:disable Mind_SAP
 
 php htdocs/test1.sportscorner.qa/current/bin/magento c:f
 php htdocs/test1.sportscorner.qa/current/bin/magento s:up
@@ -104,9 +92,10 @@ php bin/magento module:disable Searchanise_SearchAutocomplete
 php bin/magento dev:urn-catalog:generate .idea/misc.xml
 
 #new user
-php bin/magento admin:user:create --admin-user=haroonmind11 --admin-password=Haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonmind11 --admin-password=Haroonmind123456! --admin-email=haroonmind123@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
-php bin/magento admin:user:create --admin-user=haroonmind --admin-password=haroonmind123456! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonmind --admin-password=Haroonmind123456! --admin-email=haroon.khan@tbg.qa --admin-firstname=Haroon --admin-lastname=khan
+
 php bin/magento admin:user:create --admin-user=haroonmind --admin-password=asdasdsad3123! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
 admin2
@@ -198,9 +187,9 @@ sudo chown -R <Magento user>:<web server group> .
 
 mv  -v Magento-2-main/* ./
 
-$ mv /home/apache2/www/html/ /home/apache2/www/
+mv /home/apache2/www/html/ /home/apache2/www/
 OR
-$ mv /home/apache2/www/html/ ..
+mv /home/apache2/www/html/ ..
 
 #It's just <magento-root>/var/ folder permission issue.
 
@@ -209,6 +198,15 @@ $ mv /home/apache2/www/html/ ..
 sudo chmod -R 777 var/cache/*
 sudo chmod -R 777 pub/*
 sudo chmod -R 777 generated/
+
+#----------------------------Give Admin Access to user LINUX---------------------------------------
+sudo usermod -aG sudo haroonmind
+Create a new user named haroonmind, run: adduser haroonmind
+Verify it by running the id marlena command
+Log in as marlena: su - marlena. Than run sudo command for verification. For example: sudo ls -l /etc/shadow
+#----------------------------Create File in LINUX---------------------------------------
+touch index.html
+echo '<h1> Hello World </h1>' > index.html
 #----------------------------USEFUL COMMANDS FOR MAGNETO---------------------------------------
 # read last chnages on file  
 tail -f var/log/*.log
@@ -216,6 +214,7 @@ tail -f var/log/*.log
 tail  -n 15 filename.ext
 tail  -n 15 system.log
 #--------------------------------ZIP LINUX:----------------------------------------
+#----------------------es----------ZIP LINUX:----------------------------------------
 find  -iname *swatch-renderer.js*
 #Install Zip on Ubuntu and Debian #
 sudo apt install zip
@@ -225,6 +224,12 @@ sudo yum install zip
 zip -r rkn_24_10_2021.zip rkndev/ -x '*vendor*' -x '*generated*'
 zip -r rkn_19_6_2022.zip www.therkn.com/ 
 
+
+ zip -r  mdm_coco_23_2_23.zip mdm_coco_/
+
+
+
+
 unzip file.zip -d destination_folder
 
 #If the source and destination directories are the same, you can simply do:
@@ -233,7 +238,10 @@ unzip file.zip
 
 #--------------------------------MYSQL----------------------------------------
 mysql -u sportscor-test -p
+mysql -u haroonmind-p
 
+
+ALTER USER 'haroonmind'@'localhost' IDENTIFIED WITH mysql_native_password by 'Khan4504002!';
 #1. Back up the database using the following command:
 
 mysqldump -u [username] –p[password] [database_name] > [dump_file.sql]
@@ -346,8 +354,7 @@ php bin/magento indexer:reindex catalog_category_product
 php bin/magento indexer:status catalog_category_product 
 php bin/magento indexer:reindex catalog_product_attribute
 php bin/magento indexer:reindex  cataloginventory_stock
-php bin/magento indexer:reindex  catalogrule_rule
-
+php bin/magento indexer:reindex  catalogsearch_fulltext
 ### View the list of indexers Using Command Line
 
 php bin/magento indexer:info
@@ -386,7 +393,7 @@ php bin/magento deploy:mode:set production
 
 ### Run the single-tenant Compiler Using Command Line
 
-
+php bin/magento dev:template-hints:enable 
 ### Unlock Admin User Using Command Line
 
 php bin/magento admin:user:unlock adminusername
@@ -460,8 +467,7 @@ cd /home/cloudpanel/htdocs/test.therkn.com
 
 
  	0 0 * * * /usr/bin/php /var/www/html/rasenlookup/public/cronsrasen_nagtive.php
-
-
+  */30 * * * * root  /usr/bin/php /var/www/hydrus.com/html/storeanalytic/dataFetch.php
 # link
 /catalog/category/view/s/play-tables/id/1468
  
