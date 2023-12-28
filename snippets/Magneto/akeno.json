@@ -1,0 +1,324 @@
+{
+    "search": {
+   "article_number":[{"operator":"=","value":"60-98255"}]
+    }
+   }
+   
+   
+   
+   {
+   
+    "search": {
+   
+   "updated":[{"operator":"SINCE LAST N DAYS","value":3}],
+   
+   "season": [{"operator": "IN","value":["FW23"]}],
+   
+   "brand": [{"operator": "IN","value":["adidas"]}],
+   
+   "family": [{"operator": "NOT IN","value":["accessories", "fitness", "footwear", "sports"]}]
+   
+   }
+   
+   }
+   
+   {
+     "search": {
+       "updated": [{
+         "operator": ">",
+         "value": "2023-03-31 00:00:00"
+       }],
+       "family": [{
+         "operator": "NOT IN",
+         "value": [ "sports","footwear", "fitness", "accessories"]
+       }]
+     }
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   {
+   
+    "search": {
+   
+   "updated":[{"operator":"SINCE LAST N DAYS","value":30}],
+   
+   "season": [{"operator": "IN","value":["FW23"]}],
+   
+   "brand": [{"operator": "IN","value":["adidas"]}],
+   
+   "family": [{"operator": "NOT IN","value":["accessories", "fitness", "footwear", "sports"]}]
+   
+    }
+   
+   }
+   
+   
+   {
+     "search": {
+       "updated": [
+         {
+           "operator": "BETWEEN",
+           "value": ["2023-04-21 00:00:00", "2023-04-26 00:00:00"]
+         }
+       ],
+           "season": [{
+           "operator": "IN",
+           "value": ["SS23"]
+       }],
+   "base_image": [{
+           "operator": "NOT EMPTY"
+     }]
+   }
+   }
+   
+   "updated" :[{"operator":">","value": "2023-03-01 00:00:00"  }],
+   
+   {
+   "search": {
+   
+   "updated":[{"operator":"SINCE LAST N DAYS","value":60}],
+   "brand": [{"operator": "IN","value":["nike","speedo","asics","under_armour","new_balance","reebok","adidas"]}],
+       }
+   }
+   
+   # --------------------------AKENO Commands -------------------------------------------
+   //For Family
+   {
+    "family": [{
+    "operator": "NOT IN",
+    "value": ["clothing", "sports", "fitness", "accessories"]
+    }]
+   }
+   
+   
+   
+   //Brands
+   {
+    "brand": [{
+    "operator": "IN",
+    "value": ["new_balance", "asics", "nike", "reebok", "puma", "converse", "adidas", "blink","FWC2146"]
+    }]
+   }
+   
+   
+   
+   
+   
+   //season
+   {
+   "season": [{
+    "operator": "IN",
+   "value": ["FA21","HO21","HO22","FA22","SS22","SS23","SU21","FW21","SS21","FW22","sp22","SS18","FW19","FW16","SU22","SP21","SP23","SS19","SU23","FW18","FW20","FW17"]
+   }]
+   }
+   
+   {
+   "season": [{
+   "operator": "IN",
+   "value": [,"FW20","HO22","HO21","FA22","FA21","SU21"]
+   }]
+   }
+   
+   
+   
+   
+   {
+   "search": {
+   "updated": [{
+   "operator": ">",
+   "value": "2023-04-30 00:00:00"
+   }],
+   
+   "brand": [{
+   "operator": "IN",
+   "value": [ "speedo"]
+   }]
+   }
+   }
+   
+           //"new_balance", "asics", "nike", "reebok", "puma", "converse",
+   
+   
+   {
+   "search": {
+   "updated": [{
+   "operator": ">",
+   "value": "2023-05-02 00:00:00"
+   }],
+   "family": [{
+   "operator": "NOT IN",
+   "value": [ "sports","footwear", "fitness", "accessories"]
+   }],
+   
+   "family": [{
+   "operator": "NOT IN",
+   "value": [ "sports", "fitness", "accessories"]
+   }]
+   }
+   }
+   
+   
+   {
+   "search": {
+   "updated": [{
+   "operator": ">",
+   "value": "2023-05-02 00:00:00"
+   }],
+   "family": [{
+   "operator": "NOT IN",
+   "value": [ "sports", "fitness", "accessories"]
+   }],
+   "categroires": [{
+   "operator": "IN",
+   "value": ["swimming_collection"]
+   }]
+   }
+   }
+   
+   
+   
+           /*wroking */
+   {
+   "search": {
+   "updated": [{
+   "operator": ">",
+   "value": "2023-04-29 00:00:00"
+   }],
+   "brand": [{
+   "operator": "IN",
+   "value":["wilson"]
+   }],
+   "season": [{
+   "operator": "IN",
+   "value": ["FW20","HO22","HO21","FA22","FA21","SU21"]
+   }]
+   }
+   }
+   
+   
+   li-ning
+   
+
+   
+//    , "sports"
+   
+   ,
+   "season": [{
+   "operator": "IN",
+   "value": ["SS22","FW22","SP23","FW21","SS23","FW18","SS18","FW20","HO22","HO21","FA22","FA21","SU21","SS21","SS19","FW16"]
+   }]
+    /*-------------------------------*/
+   
+   "nike","speedo", "new_balance","asics","reebok","under_armour","tunturi","wilson"
+   /*-------------------------------*/
+   
+   
+   "nike","speedo", "new_balance","asics","reebok","under_armour","li-ning"
+   "bh","infiniti", "bodysolid","horizon","tunturi"
+   "new_balance", "asics", "nike", "reebok", "puma", "converse", "adidas", "blink","FWC2146"
+   UNDER ARMOUR
+   NIKE
+   SPEEDO
+   NEW BALANCE
+   ASICS
+   REEBOK
+   
+   
+   php bin/magento akeneo_connector:import --code=category
+   php bin/magento akeneo_connector:import --code=product
+   # ---------------------------------------------------------------------------------------------
+   
+   
+   {
+    "search": {
+    "updated": [{
+    "operator": ">",
+    "value": "2023-04-30 00:00:00"
+    }],
+    
+   "season": [{
+   "operator": "IN",
+   "value": ["FA21","FW22","HO21","SP23","SS19","SS21"]
+   }],
+    "brand": [{
+    "operator": "IN",
+    "value":["nike","oakley","rider","under_armour"]
+    }],
+ 
+ 
+    }
+}
+
+
+HEAD FITNESS
+HEAD FITNESS
+
+AB SPORTS  
+ADIDAS 
+ASICS 
+BABOLAT 
+BH 
+BODYSOLID  
+BULL PADEL 
+COLUMBIA 
+CONVERSE 
+DYNAMIC SPORT  
+FASHY 
+FIFA WC 
+FITBIT 
+FUJI  
+GLOBBER 
+GYMSTICK 
+HEROES 
+HIMCO 
+HOKA 
+HORIZON 
+HUMMEL 
+INFINITI 
+IPANEMA 
+JANSPORT 
+JOMA 
+LIFE TIME 
+LI-NING 
+LONGSEA SPORTS 
+MATRIX 
+MEEM 
+MERIDIAN 
+MIZUNO 
+NEW BALANCE 
+NEW ERA 
+NIKE  
+OAKLEY 
+OUTDOOR PLAY 
+POLSPORT 
+PTP 
+PUMA 
+REEBOK 
+SALOMON 
+SKECHERS 
+SLIPSTOP 
+SPEEDO 
+STARVIE 
+STEELFLEX 
+STIGA 
+STING 
+THE NORTH FACE 
+TKCHIN 
+TUNTURI 
+TUYO 
+UNDER ARMOUR 
+VANS 
+VARLION 
+VEJA 
+WESLO CADENCE 
+RIDER 
+FIFA AC 
+HEAD 
+WILSON 
+   "ab_sports","adidas","asics","babolat","bh","bodysolid","bullpadel","columbia","converse","dynamic_sport","fashy","fifa_world_cup_qatar_2022","fitbit","fuji","globber","gymstick","heroes","himco","hoka","horizon","hummel","infiniti","ipanema","jansport","joma","lifetime","li_ning","longsea_sports","matrix","meem","meridian","mizuno","new_balance","new_era","nike","oakley","outdoor_play","polsport","ptp","puma","reebok","salomon","skechers","slipstop","speedo","starvie","steelflex","stiga","sting","north_face","tkchin","tunturi","tuyo","under_armour","vans","varlion","veja","weslo_cadence","rider","fifa_arab_cup_2021","head","wilson"

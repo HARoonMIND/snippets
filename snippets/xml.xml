@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <website_id>Sportscorner</website_id>
+    <order_id>51310</order_id>
+    <quote_id>291959</quote_id>
+    <increment_id>000049411</increment_id>
+    <status>shipped</status>
+    <shipping_description>Shipping</shipping_description>
+    <base_shipping_amount>15</base_shipping_amount>
+    <customer_name>islam abdelbaky</customer_name>
+    <customer_email>islamsaber97@gmail.com</customer_email>
+    <telephone>97466859461</telephone>
+    <zone>33</zone>
+    <street_number>945</street_number>
+    <building>33</building>
+    <country_id>QA</country_id>
+    <customer_id>30503</customer_id>
+    <payment_method>Cash On Delivery</payment_method>
+    <amount_captured>115</amount_captured>
+    <created_at>2023-03-02 09:22:59</created_at>
+    <items>
+        <name>Tempo Super Mix Nut Bar</name>
+        <original_price>6</original_price>
+        <qty_ordered>10</qty_ordered>
+        <discount_amount>0</discount_amount>
+        <row_total>60</row_total>
+        <sku>8690949000760</sku>
+        <weight>3</weight>
+        <item_no>1</item_no>
+    </items>
+    <items>
+        <name>Tempo Pistachio Bar</name>
+        <original_price>8</original_price>
+        <qty_ordered>5</qty_ordered>
+        <discount_amount>0</discount_amount>
+        <row_total>40</row_total>
+        <sku>8690949000128</sku>
+        <weight>3</weight>
+        <item_no>2</item_no>
+    </items>
+</root>

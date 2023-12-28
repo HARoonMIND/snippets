@@ -5,9 +5,15 @@
     php -dmemory_limit=3G bin/magento s:s:d en_US ar_SA -f && \
     echo -e "\07" && htop
 
+
+sudo apt install -y php7.2-fp
+
 bin/magento cron:run --group="report_cron_group"
 // ar_SA
 for file in /proc/*/status ; do awk '/VmSwap|Name/{printf $2 " " $3}END{ print ""}' $file; done | sort -k 2 -n -r | less
+
+
+Redirect 301 https://canis.qa/shop/four-columns/ https://canis.qa/
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -17,6 +23,20 @@ bin/magento config:set admin/security/session_lifetime 31536000
 ### --------------------------Deployment SAP ORDER -------------------------------------------
 
 php -dmemory_limit=2G bin/magento sap:order:date-status 2022-9-26 shipped
+php bin/magento push:order 49089  
+php bin/magento push:order 51857  
+php bin/magento push:order 51857  
+php bin/magento push:order 000051249
+php bin/magento push:order 000051274
+php bin/magento order:shipping:cost 000051023
+php bin/magento akeno:assignimages
+
+# pending
+php -dmemory_limit=2G bin/magento sap:order:date-status 2023-06-03
+php -dmemorymyi_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
+php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
+php -dmemory_limit=2G bin/magento sap:order:sync-csv sample.csv
+
 ### --------------------------Deployment Production Producer-------------------------------------------
 php bin/magento deploy:mode:set developer
 php  bin/magento deploy:mode:set production -s
@@ -27,12 +47,6 @@ php bin/magento c:f
 php bin/magento s:up
 php -dmemory_limit=2G bin/magento s:s:d en_US en_GB -f
 
-php bin/magento push:order 2000000873
-php bin/magento push:order 2000001047
-php -dmemory_limit=2G bin/magento sap:order:date-status 2022-10-1 pending
-php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
-php -dmemory_limit=2G bin/magento sap:order:date-status 2022-7-1 processing
-php -dmemory_limit=2G bin/magento sap:order:sync-csv sample.csv
 
 php -dmemory_limit=12G  bin/magento indexer:reindex
 php -dmemory_limit=2G  bin/magento s:d:c
@@ -50,6 +64,8 @@ php -dmemory_limit=2G bin/magento setup:static-content:deploy  --theme Smartwave
 
 php bin/magento module:disable Vnecoms_Sms
 php bin/magento module:disable Mind_SAP
+php bin/magento module:disable Mgt_Varnish
+php bin/magento module:disable Amasty_ShopbyPage
 
 php htdocs/test1.sportscorner.qa/current/bin/magento c:f
 php htdocs/test1.sportscorner.qa/current/bin/magento s:up
@@ -72,7 +88,7 @@ php bin/magento cron:run
 
 
 
-mysql -u therkn-test -p 1DzSNkTmGd37uRkj -d therkn-test
+mysql -u root -p Changeme121 -d therkn-test
 
 TRUNCATE TABLE catalog_product_entity;
 php bin/magento module:disable  Swissup_FieldManager
@@ -92,11 +108,14 @@ php bin/magento module:disable Searchanise_SearchAutocomplete
 php bin/magento dev:urn-catalog:generate .idea/misc.xml
 
 #new user
-php bin/magento admin:user:create --admin-user=haroonmind11 --admin-password=Haroonmind123456! --admin-email=haroonmind123@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=haroonkhan11 --admin-password=Haroonkhan123456@ --admin-email=haroonkhan@gmail.com --admin-firstname=Haroon --admin-lastname=khan
 
-php bin/magento admin:user:create --admin-user=haroonmind --admin-password=Haroonmind123456! --admin-email=haroon.khan@tbg.qa --admin-firstname=Haroon --admin-lastname=khan
 
-php bin/magento admin:user:create --admin-user=haroonmind --admin-password=asdasdsad3123! --admin-email=haroonmind@gmail.com --admin-firstname=Haroon --admin-lastname=khan
+php bin/magento admin:user:create --admin-user=joan.juaniza --admin-password=Joan@123456! --admin-email=joan.juaniza@tbg.qa --admin-firstname=Joan --admin-lastname=Juaniza
+
+    php bin/magento admin:user:create --admin-user=joan.juaniza1 --admin-password=Joan@123456! --admin-email=joan.juaniza1@tbg.qa --admin-firstname=Joan --admin-lastname=Juaniza
+ 
+php bin/magento admin:user:create --admin-user=emerson1 --admin-password=Emerson54321! --admin-email=emerson1@tbg.qa --admin-firstname=emerson --admin-lastname=bengco
 
 admin2
 haroonmind
@@ -114,6 +133,7 @@ session.save_path = "var/www/shopatregal.com/public_html/session"
  grep -r woocommerce-notices-wrapper *
  grep -r /var/cpanel/php/sessions/ea-php72/ *
 
+grep -r mmethod *
 ### Navigate Directory
 To navigate into the root directory, use "cd /"
 To navigate to your home directory, use "cd" or "cd ~"
@@ -160,34 +180,12 @@ php -i | grep memory
 --name mgt-dev-72
 
 
-#----------------------------CHANGE FILE PERMISSION AND OWNER SHIP---------------------------------------
-sudo chown root:root * -R
-sudo chown clp:root * -R :super user do
-chown admin:root * -R   :change owner
-chmod -cR 777 .       :change owner
-su - clp
-sudo chown root:clp * -Rc
-#File Give file Permission to all folder to this user
-sudo chown ubuntu:ubuntu * -R
-
-#### Permission
-
-#Execute these commands as a root user. If you have already given 777 permission revert it using first two commands else proceed with the rest.
-
-find . -type f -exec chmod 664 {} \;
-
-find . -type d -exec chmod 775 {} \;
-
-find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
-
-find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
-Set the ownership to Magento user and web user using
-
-sudo chown -R <Magento user>:<web server group> .
 
 mv  -v Magento-2-main/* ./
 
 mv /home/apache2/www/html/ /home/apache2/www/
+mv home/cloudpanel/htdocs/sportscorner.qa/current/* /home/cloudpanel/htdocs/sportscorner.mgt/
+mv [source_file_name(s)] [Destination_file_name]
 OR
 mv /home/apache2/www/html/ ..
 
@@ -239,6 +237,12 @@ unzip file.zip
 #--------------------------------MYSQL----------------------------------------
 mysql -u sportscor-test -p
 mysql -u haroonmind-p
+
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo systemctl restart mysqld
+
+
 
 
 ALTER USER 'haroonmind'@'localhost' IDENTIFIED WITH mysql_native_password by 'Khan4504002!';
@@ -356,7 +360,7 @@ php bin/magento indexer:reindex catalog_product_attribute
 php bin/magento indexer:reindex  cataloginventory_stock
 php bin/magento indexer:reindex  catalogsearch_fulltext
 ### View the list of indexers Using Command Line
-
+php bin/magento indexer:reindex inventory
 php bin/magento indexer:info
 
 ### View indexer status Using Command Line
@@ -430,9 +434,36 @@ php bin/magento cron:install --force
 ### To view the crontab, enter the following command as the Magento file system owner.
 
 crontab -l
+**********************************MOUNT**********************************
+
+sudo nano /etc/fstab
+mount -l
+mount -a
+
+sudo mount 192.168.1.21:/Rpreports /mnt/RetailProReports/share_data_report
+sudo mount 192.168.1.21:/Rpreports /mnt/RetailProReports/share_data_report
+mount -t nfs 192.168.1.21:/nfs/Rpreports /mnt/RetailProReports/share_data_report -o nolock,rw
+/mnt/RetailProReports/share_data_report 192.168.1.21/Rpreports rw,sync,fsid=0,anonuid=0,no_root_squash,subtree_check
+
+**********************************MOUNT**********************************
+
+ping 192.168.1.21
+
+sudo systemctl restart httpd
+
+
+sudo systemctl restart httpd
+udo service apache2 restart
+iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8090
+iptables -t nat -A PREROUTING -p udp -m udp --dport 80 -j REDIRECT --to-ports 8090
 
 
 
+sudo systemctl restart php-fpm.service
+
+
+Command line check IP:
+curl –s https://icanhazip.com
 
 # Remove Magento crontab Using Command Line
 php bin/magento cron:remove
@@ -478,7 +509,7 @@ cd /home/cloudpanel/htdocs/test.therkn.com
 rm -rf var/cache/* pub/static/* var/page_cache/* var/page_cache/* var/generation/* pub/static/* var/composer_home/* var/view_preprocesse/*
 composer install
 
-
+rm -rf *
 
 php bin/magento setup:store-config:set --base-url="https://rasen.test/"
 SQL : MAGENTO 
@@ -495,3 +526,46 @@ find var pub/static pub/media app/etc generated/ -type f -exec chmod g+w {} \;
 find var pub/static pub/media app/etc generated/ -type d -exec chmod g+ws {} \;
 chown -R <Magento user>:<web server group> .
 chmod u+x bin/magento
+
+
+#----------------------------CHANGE FILE PERMISSION AND OWNER SHIP---------------------------------------
+sudo chown root:root * -R
+sudo chown clp:clp * -R :super user do
+chown admin:root * -R   :change owner
+chmod -cR 777 .       :change owner
+su - clp
+sudo chown root:clp * -Rc
+#File Give file Permission to all folder to this user
+sudo chown ubuntu:ubuntu * -R
+
+#### Permission
+
+#Execute these commands as a root user. If you have already given 777 permission revert it using first two commands else proceed with the rest.
+
+find . -type f -exec chmod 664 {} \;
+
+find . -type d -exec chmod 775 {} \;
+
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+Set the ownership to Magento user and web user using
+
+sudo chown -R <Magento user>:<web server group> .
+---------------------------------------------------------------------
+MYSQL> SHOW ENGINE INNODB STATUS\G
+
+---------------------------------------------------------------------
+sudo systemctl restart nginx.service
+#Older version of Linux with sysv init, type:
+sudo service nginx restart
+
+# Debian or Ubuntu Linux restart Nginx webserver, run:
+/etc/init.d/nginx restart
+
+# OR
+/etc/init.d/nginx reload
+
+# One can use the service command for sysv init based systems:
+service nginx restart
+---------------------------------------------------------------------

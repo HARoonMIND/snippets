@@ -1,0 +1,73 @@
+https://www.thegeekdiary.com/httpd-command-examples-in-linux/
+
+HTTPD refers to the Apache2 web server, and is commonly used on Linux systems. Web servers commonly use the HTTP Protocol to transfer web pages. Apart from HTTP, protocols such as HTTPS and FTP are also supported. To install httpd in a CentOS/RHEL server:
+
+yum install httpd -y
+
+Now let’s start it, since this is CentOS/RHEL distribution, use the below systemctl command:
+
+# systemctl enable --now httpd
+
+# httpd start
+# httpd stop
+# httpd restart
+# httpd graceful
+# httpd graceful-stop 
+
+# httpd -C 
+5. To process the config directive before reading config file:
+
+# httpd -c 
+6. To set a configuration parameter:
+
+# httpd -D 
+7. To set the log level for the http daemon:
+
+# httpd -e 
+8. To sent error message during server startup to file:
+
+# httpd -E /tmp/error.log 
+9. To set the directory for shared object files:
+
+# httpd -R /dri/path 
+10. To get the help for httpd:
+
+# httpd -h 
+11. To see the list of modules compiled into the server:
+
+# httpd -l 
+12. To see the list of directives:
+
+# httpd -L 
+13. To see the list of static and loaded modules:
+
+# httpd -M 
+14. To see the settings parsed from the configuration file:
+
+# httpd -S 
+15. To run syntax test for config files only:
+
+# httpd -t 
+16. To print the version of httpd:
+
+# httpd -v 
+17. To print the version and build parameters of httpd:
+
+# httpd -V 
+18. To run the httpd in debu mode:
+
+# httpd -X 
+19. To install apache as Windows NT sevice:
+
+# httpd -k install
+# httpd -k config
+# httpd -k uninstall 
+20. The name of the Apache service to signal:
+
+# httpd -n name 
+21. To keep the console window open on error so that the error message can be read:
+
+# httpd -w 
+ ss -natu
+ 
+ 151.101.1.91:443

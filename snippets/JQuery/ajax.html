@@ -1,0 +1,24 @@
+<script>
+    $.ajax({
+    type: "GET",
+    url: "https://eodhistoricaldata.com/api/eod/EURUSD.FOREX?api_token=636a1f503c2754.67444631&order=d&fmt=json&from=23-03-01&to=23-03-10",
+                data: {inv_item: $(this).children().eq(0).html()},
+//     data: {user_id: user_id, role_id: 2},
+    success:
+            function (data) {
+              console.log(data);  //as a debugging message.
+              var obj = JSON.parse(data);
+              location.reload();
+
+            }
+    , error: function (event, jqXHR, ajaxSettings, thrownError) {
+      console.log(thrownError);
+      console.log(jqXHR);
+      console.log(ajaxSettings);
+    }
+  });
+
+  $("#sportsCorner-form").submit(function (){
+
+});
+</script>
